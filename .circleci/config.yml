@@ -113,15 +113,15 @@ jobs:
     # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
-    - run: createuser admin -s -U ubuntu -h $PG_HOST
-    - run: createuser write -U admin
-    - run: createuser read -U admin
-    - run: createuser api -U admin --role write
-    - run: createuser no_phi -U admin --role read
-    - run: createdb jasonworden_test -U admin
-    - run: psql -U admin jasonworden_test < schema/pg/base.sql
-    - run: which sync-db
-    - run: psql -U admin jasonworden_test < schema/pg/base-test.sql
+    # - run: createuser admin -s -U ubuntu -h $PG_HOST
+    - run: createuser write -U admin -h $PG_HOST
+    - run: createuser read -U admin -h $PG_HOST
+    - run: createuser api -U admin --role write -h $PG_HOST
+    - run: createuser no_phi -U admin --role read -h $PG_HOST
+    - run: createdb jasonworden_test -U admin -h $PG_HOST
+    - run: psql -U admin -h $PG_HOST jasonworden_test < schema/pg/base.sql
+    # - run: which sync-db
+    # - run: psql -U admin jasonworden_test < schema/pg/base-test.sql
     # Compile
     #   This would typically go in either a build or a build-and-test job when using workflows
     # This is based on your 1.0 configuration file or project settings
