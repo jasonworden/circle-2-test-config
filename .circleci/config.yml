@@ -66,6 +66,7 @@ jobs:
         environment:
           DOCKERIZE_VERSION: v0.3.0
 
+    - run: sudo apt-get install lsb-release
     - run: sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
     - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     - run: sudo apt-get update
