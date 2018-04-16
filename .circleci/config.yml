@@ -78,22 +78,12 @@ jobs:
 
     - run: sudo service postgresql restart
 
-    # - run:
-    #       name: Waiting for Postgres to be ready
-    #       command: |
-    #         for i in `seq 1 10`;
-    #         do
-    #           nc -z localhost 5432 && echo Success && exit 0
-    #           echo -n .
-    #           sleep 1
-    #         done
-    #         echo Failed waiting for Postgres && exit 1
     - run:
         name: Wait until Postgres is ready
         command: dockerize -wait tcp://localhost:5432 -timeout 1m
 
     # https://hub.docker.com/_/redis/ container for redis instead?
-    - run: sudo apt-get -y install redis-server
+    # - run: sudo apt-get -y install redis-server
     - run: sudo service redis-server start
     - run:
         name: Wait until Redis is ready
