@@ -110,7 +110,7 @@ jobs:
     # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
-    - run: createuser $PG_USER -s -U ubuntu
+    - run: createuser $PG_USER -s -U circleci
     - run: createuser write -U $PG_USER
     - run: createuser read -U $PG_USER
     - run: createuser api -U $PG_USER --role write
