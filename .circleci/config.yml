@@ -84,7 +84,7 @@ jobs:
 
     # https://hub.docker.com/_/redis/ container for redis instead?
     # - run: sudo apt-get -y install redis-server
-    - run: sudo service redis-server start
+    # - run: sudo service redis-server start
     - run:
         name: Wait until Redis is ready
         command: dockerize -wait tcp://localhost:6379 -timeout 1m
