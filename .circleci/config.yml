@@ -112,8 +112,8 @@ jobs:
     # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
-    - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
-    - run: createuser $PG_USER -s -U root
+    # - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
+    - run: createuser $PG_USER -s -U postgres
     - run: createuser write -U $PG_USER
     - run: createuser read -U $PG_USER
     - run: createuser api -U $PG_USER --role write
