@@ -40,12 +40,14 @@ jobs:
         # command: [which, psql]
     - image: redis:3.2-alpine
     steps:
+    - run: pwd
     - run: uname -a
     - run: node -v
     - run: npm -v
     - run: whoami
     #   If you break your build into multiple jobs with workflows, you will probably want to do the parts of this that are relevant in each
     - checkout
+    - run: pwd
     # Prepare for artifact and test results  collection equivalent to how it was done on 1.0.
     # In many cases you can simplify this from what is generated here.
     # 'See docs on artifact collection here https://circleci.com/docs/2.0/artifacts/'
@@ -78,6 +80,7 @@ jobs:
     - run: sudo apt-get update
     - run: sudo apt-get -y install postgresql-9.6
 
+    - run: sudo mv .circleci/pg_hba.conf /etc/postgresql/9.1/main/pg_hba.conf
     - run: sudo service postgresql restart
 
     - run:
@@ -113,7 +116,7 @@ jobs:
     - run: ls
     - run: pwd
     # - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
-    - run: sudo -u postgres psql "\password postgres"
+    # - run: sudo -u postgres psql "\password postgres"
     - run: createuser $PG_USER -s -U postgres
     - run: createuser write -U $PG_USER
     - run: createuser read -U $PG_USER
