@@ -1,0 +1,19 @@
+{
+  "name": "c2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonworden/circle-2-test-config.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonworden/circle-2-test-config/issues"
+  },
+  "homepage": "https://github.com/jasonworden/circle-2-test-config#readme"
+}
