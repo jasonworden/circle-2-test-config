@@ -74,7 +74,7 @@ jobs:
     - run: sudo add-apt-repository "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main"
     - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
     - run: sudo apt-get update
-    - run: sudo apt-get -y install postgresql-client-9.6
+    - run: sudo apt-get -y install postgresql-9.6
 
     # - run:
     #       name: Waiting for Postgres to be ready
@@ -97,8 +97,11 @@ jobs:
         name: Wait until Redis is ready
         command: dockerize -wait tcp://localhost:6379 -timeout 1m
 
+    - run: which createuser
+    - run: which psql
+    - run: postgres
+
     # - run: sudo chown -R circleci /usr/local
-    - run: npm install -g pm2@2.2.2
     # DB_URL: "postgres://circleci-demo-go@localhost:5432/circle_test?sslmode=disable"
     # The following line was run implicitly in your 1.0 builds based on what CircleCI inferred about the structure of your project. In 2.0 you need to be explicit about which commands should be run. In some cases you can discard inferred commands if they are not relevant to your project.
     - run: if [ -z "${NODE_ENV:-}" ]; then export NODE_ENV=test; fi
@@ -120,27 +123,7 @@ jobs:
     - run: createuser read -U $PG_USER -h $PG_HOST
     - run: createuser api -U $PG_USER --role write -h $PG_HOST
     - run: createuser no_phi -U $PG_USER --role read -h $PG_HOST
-    # - run: psql -U $PG_USER -h $PG_HOST jasonworden_test < schema/pg/base.sql
-    # - run: which sync-db
-    # - run: psql -U admin jasonworden_test < schema/pg/base-test.sql
-    # Compile
-    #   This would typically go in either a build or a build-and-test job when using workflows
-    # # This is based on your 1.0 configuration file or project settings
-    # - run:
-    #     name: Build from src
-    #     command: bin/build
-    # Test
-    #   This would typically be a build job when using workflows, possibly combined with build
-    # This is based on your 1.0 configuration file or project settings
-    - run: which pm2
-    # - run: /opt/circleci/nodejs/v8.9.1/bin/pm2 startOrReload pm2/api-build.json
-    # - run:
-    #     name: Run tests
-    #     command: node_modules/.bin/mocha --reporter mocha-circleci-reporter --recursive build/t --timeout $TEST_TIMEOUT
-    # - run: cp test-results.xml $CIRCLE_TEST_REPORTS/test-results.xml
-    # Teardown
-    #   If you break your build into multiple jobs with workflows, you will probably want to do the parts of this that are relevant in each
-    # Save test results
+
     - store_test_results:
         path: /tmp/circleci-test-results
     # Save artifacts
