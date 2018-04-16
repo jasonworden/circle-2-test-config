@@ -36,7 +36,7 @@ jobs:
       environment:
         POSTGRES_USER: admin
         POSTGRES_DB: jasonworden_test
-        command: [which, ls]
+        # command: [which, ls]
         # command: [which, psql]
     - image: redis:3.2-alpine
     steps:
@@ -112,6 +112,7 @@ jobs:
     # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
+    - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
     - run: createuser $PG_USER -s -U root
     - run: createuser write -U $PG_USER
     - run: createuser read -U $PG_USER
