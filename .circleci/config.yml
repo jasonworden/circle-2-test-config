@@ -60,6 +60,9 @@ jobs:
         # - v1-dep-
     # This is based on your 1.0 configuration file or project settings
     # - run: sudo apt-get -y install postgresql-9.6
+
+    - run: sudo chown -R circleci /usr/local
+
     - run:
         name: install dockerize
         command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
@@ -94,7 +97,7 @@ jobs:
         name: Wait until Redis is ready
         command: dockerize -wait tcp://localhost:6379 -timeout 1m
 
-    - run: sudo chown -R circleci /usr/local
+    # - run: sudo chown -R circleci /usr/local
     - run: npm install -g pm2@2.2.2
     # DB_URL: "postgres://circleci-demo-go@localhost:5432/circle_test?sslmode=disable"
     # The following line was run implicitly in your 1.0 builds based on what CircleCI inferred about the structure of your project. In 2.0 you need to be explicit about which commands should be run. In some cases you can discard inferred commands if they are not relevant to your project.
@@ -113,12 +116,11 @@ jobs:
     # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
-    # - run: createuser admin -s -U ubuntu -h $PG_HOST
+    - run: createuser admin -s -U ubuntu -h $PG_HOST
     - run: createuser write -U admin -h $PG_HOST
     - run: createuser read -U admin -h $PG_HOST
     - run: createuser api -U admin --role write -h $PG_HOST
     - run: createuser no_phi -U admin --role read -h $PG_HOST
-    - run: createdb jasonworden_test -U admin -h $PG_HOST
     - run: psql -U admin -h $PG_HOST jasonworden_test < schema/pg/base.sql
     # - run: which sync-db
     # - run: psql -U admin jasonworden_test < schema/pg/base-test.sql
