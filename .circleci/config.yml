@@ -110,7 +110,7 @@ jobs:
         # You can probably delete some of these entries
         - ./node_modules
     # # This is based on your 1.0 configuration file or project settings
-    - run: sudo service postgresql restart
+    # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
     - run: createuser admin -s -U ubuntu -h $PG_HOST
