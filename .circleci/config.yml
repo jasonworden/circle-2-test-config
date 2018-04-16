@@ -91,7 +91,6 @@ jobs:
 
     - run: which createuser
     - run: which psql
-    - run: postgres
 
     # - run: sudo chown -R circleci /usr/local
     # DB_URL: "postgres://circleci-demo-go@localhost:5432/circle_test?sslmode=disable"
