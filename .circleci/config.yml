@@ -116,8 +116,8 @@ jobs:
     - run: ls
     - run: pwd
     # - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
-    - run: psql -u postgres -c "ALTER USER Postgres WITH PASSWORD postgres"
-    - run: sudo -u postgres psql "\password postgres"
+    - run: psql -U postgres -c "ALTER USER Postgres WITH PASSWORD postgres"
+    # - run: sudo -u postgres psql "\password postgres"
     - run: createuser $PG_USER -s -U postgres
     - run: createuser write -U $PG_USER
     - run: createuser read -U $PG_USER
