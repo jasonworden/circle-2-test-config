@@ -76,6 +76,8 @@ jobs:
     - run: sudo apt-get update
     - run: sudo apt-get -y install postgresql-9.6
 
+    - run: sudo service postgresql restart
+
     # - run:
     #       name: Waiting for Postgres to be ready
     #       command: |
