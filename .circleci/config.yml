@@ -32,10 +32,10 @@ jobs:
         PG_USER: admin
         PG_NAME: jasonworden_test
         # PG_URL: postgres://admin@localhost/jasonworden_test
-    - image: circleci/postgres:9.6-alpine-ram
-      environment:
-        POSTGRES_USER: admin
-        POSTGRES_DB: jasonworden_test
+    # - image: circleci/postgres:9.6-alpine-ram
+    #   environment:
+    #     POSTGRES_USER: admin
+    #     POSTGRES_DB: jasonworden_test
     - image: redis:3.2-alpine
     steps:
     - run: uname -a
@@ -119,10 +119,12 @@ jobs:
     # - run: sudo service postgresql restart
     - run: ls
     - run: pwd
-    - run: createuser write -U $PG_USER -h $PG_HOST
-    - run: createuser read -U $PG_USER -h $PG_HOST
-    - run: createuser api -U $PG_USER --role write -h $PG_HOST
-    - run: createuser no_phi -U $PG_USER --role read -h $PG_HOST
+    - run: createuser $PG_USER -s -U ubuntu
+    - run: createuser write -U $PG_USER
+    - run: createuser read -U $PG_USER
+    - run: createuser api -U $PG_USER --role write
+    - run: createuser no_phi -U $PG_USER --role read
+    - run: createdb $PG_NAME -U $PG_USER
 
     - store_test_results:
         path: /tmp/circleci-test-results
