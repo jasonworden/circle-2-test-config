@@ -32,7 +32,10 @@ jobs:
         PG_USER: admin
         PG_NAME: jasonworden_test
         # PG_URL: postgres://admin@localhost/jasonworden_test
-    - image: circleci/postgres:9.6-alpine-ram
+    # - image: jasonworden/circleci-pg-dockerfile
+      # auth:
+      #   username: jasonworden
+      #   password: $DOCKERHUB_PASSWORD
       environment:
         POSTGRES_USER: admin
         POSTGRES_DB: jasonworden_test
@@ -116,7 +119,7 @@ jobs:
     - run: ls
     - run: pwd
     # - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
-    - run: psql -U postgres -c "ALTER USER Postgres WITH PASSWORD postgres"
+    - run: sudo -u postgres psql -U postgres -c "ALTER USER Postgres WITH PASSWORD postgres"
     # - run: sudo -u postgres psql "\password postgres"
     - run: createuser $PG_USER -s -U postgres
     - run: createuser write -U $PG_USER
