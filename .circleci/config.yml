@@ -83,7 +83,7 @@ jobs:
     - run: sudo apt-get update
     - run: sudo apt-get -y install postgresql-9.6
 
-    - run: sudo mv .circleci/pg_hba.conf /etc/postgresql/9.6/main/pg_hba.conf
+    # - run: sudo mv .circleci/pg_hba.conf /etc/postgresql/9.6/main/pg_hba.conf
     - run: sudo service postgresql restart
 
     - run:
