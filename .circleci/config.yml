@@ -31,16 +31,6 @@ jobs:
         PG_HOST: 127.0.0.1
         PG_USER: admin
         PG_NAME: jasonworden_test
-        # PG_URL: postgres://admin@localhost/jasonworden_test
-    # - image: jasonworden/circleci-pg-dockerfile
-      # auth:
-      #   username: jasonworden
-      #   password: $DOCKERHUB_PASSWORD
-      # environment:
-      #   POSTGRES_USER: admin
-      #   POSTGRES_DB: jasonworden_test
-        # command: [which, ls]
-        # command: [which, psql]
     - image: redis:3.2-alpine
     steps:
     - run: pwd
@@ -83,7 +73,7 @@ jobs:
     - run: sudo apt-get update
     - run: sudo apt-get -y install postgresql-9.6
 
-    - run: sudo mv .circleci/pg_hba.conf /etc/postgresql/9.6/main/pg_hba.conf
+    # - run: sudo mv .circleci/pg_hba.conf /etc/postgresql/9.6/main/pg_hba.conf
     - run: sudo service postgresql restart
 
     - run:
@@ -107,7 +97,6 @@ jobs:
     - run: npm install
     - run: export PATH="~/jasonworden/api/node_modules/.bin:$PATH"
     - save_cache:
-        # key: v1-dep-{{ .Branch }}-{{ epoch }}
         key: api-v2-{{ checksum "package.json" }}
         # key: api-node-modules-
         paths:
@@ -117,10 +106,7 @@ jobs:
     # # This is based on your 1.0 configuration file or project settings
     # - run: sudo service postgresql restart
     - run: ls
-    - run: pwd
-    # - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
     # - run: psql -U postgres -c "ALTER USER Postgres WITH PASSWORD 'postgres'" -w
-    # - run: sudo -u postgres psql "\password postgres"
     - run: createuser $PG_USER -s -U postgres -w
     - run: createuser write -U $PG_USER -w
     - run: createuser read -U $PG_USER -w
