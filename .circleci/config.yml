@@ -121,12 +121,12 @@ jobs:
     # - run: psql -c "SELECT u.usename AS "User Name" FROM pg_catalog.pg_user u;"
     - run: psql -U postgres -w -c "ALTER USER Postgres WITH PASSWORD 'postgres'"
     # - run: sudo -u postgres psql "\password postgres"
-    - run: createuser $PG_USER -s -U postgres
-    - run: createuser write -U $PG_USER
-    - run: createuser read -U $PG_USER
-    - run: createuser api -U $PG_USER --role write
-    - run: createuser no_phi -U $PG_USER --role read
-    - run: createdb $PG_NAME -U $PG_USER
+    - run: createuser $PG_USER -s -U postgres -w
+    - run: createuser write -U $PG_USER -w
+    - run: createuser read -U $PG_USER -w
+    - run: createuser api -U $PG_USER --role write -w
+    - run: createuser no_phi -U $PG_USER --role read -w
+    - run: createdb $PG_NAME -U $PG_USER -w
 
     - store_test_results:
         path: /tmp/circleci-test-results
