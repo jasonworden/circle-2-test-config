@@ -36,9 +36,9 @@ jobs:
       # auth:
       #   username: jasonworden
       #   password: $DOCKERHUB_PASSWORD
-      environment:
-        POSTGRES_USER: admin
-        POSTGRES_DB: jasonworden_test
+      # environment:
+      #   POSTGRES_USER: admin
+      #   POSTGRES_DB: jasonworden_test
         # command: [which, ls]
         # command: [which, psql]
     - image: redis:3.2-alpine
